@@ -1,20 +1,16 @@
+import 'package:event_management_app/module/register_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const LoginApp());
 
-class LoginApp extends StatelessWidget {
-  const LoginApp({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginPage(),
-    );
-  }
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class _LoginPageState extends State<LoginPage> {
+  bool _isObscure = true; // Password visibility flag
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +20,10 @@ class LoginPage extends StatelessWidget {
           // Background Image
           Container(
             decoration: const BoxDecoration(
-              // image: DecorationImage(
-              //   image: AssetImage("assets/background.jpg"),
-              //   fit: BoxFit.cover,
-              // ),
+              image: DecorationImage(
+                image: AssetImage("assets/background.jpg"),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Center(
@@ -50,19 +46,48 @@ class LoginPage extends StatelessWidget {
                       labelText: "Email",
                       filled: true,
                       fillColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
                     ),
                   ),
 
                   const SizedBox(height: 20),
 
-                  // Password TextField
-                  const TextField(
+                  // Password TextField with visibility toggle
+                  TextField(
+                    obscureText: _isObscure,
                     decoration: InputDecoration(
                       labelText: "Password",
                       filled: true,
                       fillColor: Colors.white,
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                      ),
                     ),
-                    obscureText: true,
                   ),
 
                   const SizedBox(height: 20),
@@ -73,6 +98,31 @@ class LoginPage extends StatelessWidget {
                       // Handle login logic here
                     },
                     child: const Text("Login"),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Don't have an account?,",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => RegisterPage(),
+                          ));
+                        },
+                        child: const Text(
+                          "Register now",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

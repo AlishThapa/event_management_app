@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(
         useMaterial3: true,
       ).copyWith(textTheme: GoogleFonts.interTextTheme()),
-      home: const LoginApp(),
+      home: const LoginPage(),
     );
   }
 }
