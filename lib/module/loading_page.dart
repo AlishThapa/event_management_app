@@ -16,7 +16,7 @@ class _LoadingPageState extends State<LoadingPage> {
     super.initState();
     checkSession().then((value) {
       if(value){
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const HomePage(),
@@ -24,7 +24,7 @@ class _LoadingPageState extends State<LoadingPage> {
         );
       }
       else{
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const LoginPage(),

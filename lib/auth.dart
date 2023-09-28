@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:event_management_app/module/database/database.dart';
 
 Client client = Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -16,6 +17,7 @@ Future<String> createUser({required String name, required String email, required
       password: password,
       name: name,
     );
+    saveUserData(name: name, email: email, userId: user.$id);
     return "success";
   } on AppwriteException catch (e) {
     return e.message.toString();
@@ -31,27 +33,24 @@ Future loginUser({required String email, required String password}) async {
       password: password,
     );
     return true;
-  }on AppwriteException catch (e) {
+  } on AppwriteException catch (e) {
     return false;
   }
 }
 
-
-
 /// LOGOUT ///
 
-Future logoutUser()async{
+Future logoutUser() async {
   await account.deleteSession(sessionId: 'current');
 }
 
 //check if user have an active session or not
 
-Future checkSession()async{
-  try{
+Future checkSession() async {
+  try {
     await account.getSession(sessionId: 'current');
     return true;
-  }
-  on AppwriteException catch (e){
+  } on AppwriteException catch (e) {
     return false;
   }
 }
