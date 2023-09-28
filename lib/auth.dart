@@ -1,5 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:event_management_app/module/database/database.dart';
+import 'package:event_management_app/module/local_data_save/saved_data.dart';
 
 Client client = Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -32,6 +33,8 @@ Future loginUser({required String email, required String password}) async {
       email: email,
       password: password,
     );
+    getUserData();
+    LocalDataSaved.saveUserId(user.userId);
     return true;
   } on AppwriteException catch (e) {
     return false;

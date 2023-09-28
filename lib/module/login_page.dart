@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                       });
                     },
                     icon: Icon(
-                      _isObscure == true ? Icons.visibility : Icons.visibility_off,
+                      _isObscure == true ? Icons.visibility_off : Icons.visibility,
                       color: Colors.black,
                     ),
                   ),
@@ -97,13 +97,16 @@ class _LoginPageState extends State<LoginPage> {
                       password: passwordController.text.trim(),
                     ).then(
                       (value) {
-                        if (value == 'success') {
+                        if (value) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Logged in Successfully'),
                             ),
                           );
-                          Navigator.push(
+                          Future.delayed(
+                            Duration(seconds: 1),
+                          );
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const HomePage(),
@@ -111,22 +114,16 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                             SnackBar(
-                              content: Text(value.toString()),
+                            SnackBar(
+                              content: Text(value),
                             ),
                           );
                         }
                       },
                     );
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                    );
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
                     decoration: BoxDecoration(
                       color: Colors.tealAccent,
                       borderRadius: BorderRadius.circular(16),

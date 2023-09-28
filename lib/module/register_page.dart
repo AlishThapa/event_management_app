@@ -86,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             });
                           },
                           icon: Icon(
-                            _isObscure == true ? Icons.visibility : Icons.visibility_off,
+                            _isObscure == true ? Icons.visibility_off : Icons.visibility,
                             color: Colors.black,
                           ),
                         ),

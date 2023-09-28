@@ -1,9 +1,12 @@
 import 'package:event_management_app/module/loading_page.dart';
+import 'package:event_management_app/module/local_data_save/saved_data.dart';
 import 'package:event_management_app/module/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  LocalDataSaved.init();
   runApp(const MyApp());
 }
 

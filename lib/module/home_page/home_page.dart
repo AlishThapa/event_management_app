@@ -1,4 +1,5 @@
 import 'package:event_management_app/auth.dart';
+import 'package:event_management_app/module/local_data_save/saved_data.dart';
 import 'package:event_management_app/module/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,13 +11,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String userName = '';
+
+  @override
+  void initState() {
+    userName = LocalDataSaved.getUserName();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(userName);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: Text(userName),
         centerTitle: true,
-        leading: const Text(''),
+        leading: const Text(
+          '',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -43,6 +56,14 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16.0),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.tealAccent,
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
       ),
     );
   }
