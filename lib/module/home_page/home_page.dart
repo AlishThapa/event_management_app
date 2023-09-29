@@ -3,6 +3,9 @@ import 'package:event_management_app/module/local_data_save/saved_data.dart';
 import 'package:event_management_app/module/login_page.dart';
 import 'package:flutter/material.dart';
 
+import '../event/event_page.dart';
+import '../widgets/custom_header_text.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -24,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     print(userName);
     return Scaffold(
       appBar: AppBar(
-        title: Text(userName),
+        title: CustomHeaderText(text: userName),
         centerTitle: true,
         leading: const Text(
           '',
@@ -58,7 +61,9 @@ class _HomePageState extends State<HomePage> {
         width: MediaQuery.of(context).size.width,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const EventPage()));
+        },
         backgroundColor: Colors.tealAccent,
         child: const Icon(
           Icons.add,
