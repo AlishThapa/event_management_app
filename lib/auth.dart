@@ -1,6 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:event_management_app/module/database/database.dart';
 import 'package:event_management_app/module/local_data_save/saved_data.dart';
+import 'package:flutter/material.dart';
 
 Client client = Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -21,13 +22,14 @@ Future<String> createUser({required String name, required String email, required
     saveUserData(name: name, email: email, userId: user.$id);
     return "success";
   } on AppwriteException catch (e) {
+    print(e.message.toString());
     return e.message.toString();
   }
 }
 
 /// LOGIN ///
 
-Future loginUser({required String email, required String password}) async {
+Future loginUser(BuildContext context, {required String email, required String password}) async {
   try {
     final user = await account.createEmailSession(
       email: email,
@@ -37,6 +39,11 @@ Future loginUser({required String email, required String password}) async {
     LocalDataSaved.saveUserId(user.userId);
     return true;
   } on AppwriteException catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Incorrect Email or Password'),
+      ),
+    );
     return false;
   }
 }

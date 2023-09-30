@@ -11,6 +11,7 @@ class CustomInputForm extends StatelessWidget {
   final VoidCallback? onTap;
   final bool? readOnly;
   final Widget? suffixIcon;
+  final String? Function(String?)? validator;
 
   const CustomInputForm({
     super.key,
@@ -24,6 +25,7 @@ class CustomInputForm extends StatelessWidget {
     this.readOnly,
     this.controller,
     this.suffixIcon,
+    this.validator,
   });
 
   @override
@@ -43,7 +45,7 @@ class CustomInputForm extends StatelessWidget {
           height: 7,
         ),
         TextFormField(
-
+          validator: validator,
           controller: controller,
           readOnly: readOnly ?? false,
           onTap: onTap,

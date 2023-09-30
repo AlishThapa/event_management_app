@@ -10,7 +10,7 @@ class CustomHeaderText extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        color: Colors.teal,
+        color: Colors.tealAccent,
         fontSize: 32,
         fontWeight: FontWeight.w600,
       ),

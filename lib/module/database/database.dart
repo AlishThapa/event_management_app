@@ -4,7 +4,8 @@ import 'package:event_management_app/module/local_data_save/saved_data.dart';
 import '../../auth.dart';
 
 String databaseId = '65153a6166fe14ae786e';
-String collectionId = '65153a72c2d0ec755080';
+String userCollectionId = '65153a72c2d0ec755080';
+String eventCollectionId = '6516eb5b6e862de7fbb4';
 
 final Databases databases = Databases(client);
 
@@ -18,7 +19,7 @@ Future<void> saveUserData({
   return await databases
       .createDocument(
         databaseId: databaseId,
-        collectionId: collectionId,
+        collectionId: userCollectionId,
         documentId: ID.unique(),
         data: {
           "Name": name,
@@ -37,7 +38,7 @@ Future getUserData() async {
   try {
     final data = await databases.listDocuments(
       databaseId: databaseId,
-      collectionId: collectionId,
+      collectionId: userCollectionId,
       queries: [
         Query.equal('userID', id),
       ],
@@ -45,6 +46,52 @@ Future getUserData() async {
     LocalDataSaved.saveUserName(data.documents[0].data['Name']);
     LocalDataSaved.saveUserEmail(data.documents[0].data['Email']);
     print(data);
+  } catch (e) {
+    print(e);
+  }
+}
+
+///create new event in database
+Future<void> createEvent({
+  required String name,
+  required String description,
+  required String image,
+  required String location,
+  required String datetime,
+  required String createdBy,
+  required bool isInPerson,
+  required String guest,
+  required String sponsors,
+}) async {
+  return await databases
+      .createDocument(
+        databaseId: databaseId,
+        collectionId: eventCollectionId,
+        documentId: ID.unique(),
+        data: {
+          "name": name,
+          "description": description,
+          "image": image,
+          "location": location,
+          "dateTime": datetime,
+          "createdBy": createdBy,
+          "isInPerson": isInPerson,
+          "guest": guest,
+          "sponsors": sponsors
+        },
+      )
+      .then((value) => print("Event Created"))
+      .catchError((e) => print(e));
+}
+
+///READ ALL EVENTS
+Future getAllEvents() async {
+  try {
+    final data = await databases.listDocuments(
+      databaseId: databaseId,
+      collectionId: eventCollectionId,
+    );
+    return data.documents;
   } catch (e) {
     print(e);
   }

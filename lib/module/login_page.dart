@@ -93,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                 InkWell(
                   onTap: () {
                     loginUser(
+                      context,
                       email: emailController.text.trim(),
                       password: passwordController.text.trim(),
                     ).then(
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           );
                           Future.delayed(
-                            Duration(seconds: 1),
+                            const Duration(seconds: 1),
                           );
                           Navigator.pushReplacement(
                             context,
@@ -115,7 +116,12 @@ class _LoginPageState extends State<LoginPage> {
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(value),
+                              content: Column(
+                                children: [
+                                  Text(value),
+                                  const Text('Incorrect Email or Password'),
+                                ],
+                              ),
                             ),
                           );
                         }
