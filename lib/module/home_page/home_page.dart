@@ -1,6 +1,7 @@
 import 'package:appwrite/models.dart';
 import 'package:event_management_app/auth.dart';
 import 'package:event_management_app/module/database/database.dart';
+import 'package:event_management_app/module/event/event_details.dart';
 import 'package:event_management_app/module/local_data_save/saved_data.dart';
 import 'package:event_management_app/module/login_page.dart';
 import 'package:flutter/material.dart';
@@ -85,6 +86,16 @@ class _HomePageState extends State<HomePage> {
                         elevation: 8,
                         shadowColor: Colors.tealAccent,
                         child: ListTile(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EventDetailsPage(
+                                  document: event[index],
+                                ),
+                              ),
+                            );
+                          },
                           leading: CircleAvatar(
                             backgroundColor: Colors.greenAccent,
                             child: Text(
